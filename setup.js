@@ -101,6 +101,7 @@ program
   .parse(process.argv);
 
 if (process.argv.length < 3 || !cmds[process.argv[2]]) {
+  console.log(Object.keys(cmds).join(' | '));
   program.outputHelp();
 } else {
   var batch = new Batch;
