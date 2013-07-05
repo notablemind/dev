@@ -16,6 +16,18 @@ status:
 		cd $$dir && git status; cd ../; \
 	done
 
+graphs: 
+	@for dir in $(repos); do\
+	    zsh -c 'echo -e "\e[32m--> '$$dir'\e[0m"';\
+		cd $$dir && component graph -t dot -o ../$$dir.png; cd ../; \
+	done
+
+examples: 
+	@for dir in $(repos); do\
+	    zsh -c 'echo -e "\e[32m--> '$$dir'\e[0m"';\
+		cd $$dir && make example; cd ../; \
+	done
+
 pull: 
 	@for dir in $(repos); do\
 	    zsh -c 'echo -e "\e[32m--> '$$dir'\e[0m"';\
