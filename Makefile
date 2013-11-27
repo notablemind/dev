@@ -50,17 +50,22 @@ c-link:
 	@for dir in $(repos); do\
 	    zsh -c 'echo -e "\e[32m--> '$$dir'\e[0m"';\
 		cd $$dir;\
-		component install;\
-		cd components;\
-		for repo in $(toget); do\
-			fullname=`echo $$repo | sed 's/\//-/'`;\
-			name=`echo $$repo | sed 's/[^/]*\///'`;\
-			if [ -d $$fullname ];\
-			then\
-				rm -rf $$fullname && ln -s ../../$$name $$fullname;\
+		if [ -f component.json ]; then\
+			component install;\
+			if [ -d components ]; then\
+				cd components;\
+				for repo in $(toget); do\
+					fullname=`echo $$repo | sed 's/\//-/'`;\
+					name=`echo $$repo | sed 's/[^/]*\///'`;\
+					if [ -d $$fullname ];\
+					then\
+						rm -rf $$fullname && ln -s ../../$$name $$fullname;\
+					fi;\
+				done;\
+				cd ..;\
 			fi;\
-		done;\
-		cd ../..;\
+		fi;\
+		cd ..;\
 	done
 
 
