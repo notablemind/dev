@@ -4,6 +4,14 @@ toget := $(shell cat repos | tr '\n' ' ')
 
 setup: clone link
 
+mbuild:
+	@for repo in $(toget); do\
+		name=`echo $$repo | sed 's/[^/]*\///'`;\
+		if [ -d $$name ]; then\
+			cd $$name; [ -f Makefile ] && make; cd ..; \
+		fi; \
+	done
+
 clone:
 	@for repo in $(toget); do\
 		if [ -d `echo $$repo | sed 's/[^/]*\///'` ];\
